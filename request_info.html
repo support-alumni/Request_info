@@ -6,6 +6,40 @@
     <title>Request Alumni Info</title>
     <link rel="stylesheet" href="request_info_style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script>
+        function validateForm(event) {
+            event.preventDefault(); // Prevent form submission
+            
+            // Get form input values
+            const firstName = document.querySelector('input[placeholder="First Name"]').value.trim();
+            const lastName = document.querySelector('input[placeholder="Last Name"]').value.trim();
+            const email = document.querySelector('input[placeholder="Email ID"]').value.trim();
+            const untEmail = document.querySelector('input[placeholder="UNT Email ID"]').value.trim();
+            const companyName = document.querySelector('input[placeholder="Company Name"]').value.trim();
+            const linkedInID = document.querySelector('input[placeholder="LinkedIn ID"]').value.trim();
+            const message = document.querySelector('textarea[placeholder="Message"]').value.trim();
+            
+            // Validate that all fields are filled
+            if (!firstName || !lastName || !email || !untEmail || !companyName || !linkedInID || !message) {
+                alert("Please fill in all fields.");
+                return;
+            }
+
+            // Validate email addresses
+            if (!email.includes('@')) {
+                alert("Please enter a valid email address.");
+                return;
+            }
+            if (!untEmail.endsWith('@my.unt.edu')) {
+                alert("UNT Email must end with '@my.unt.edu'.");
+                return;
+            }
+
+            // If all checks pass, submit the form or make the database request
+            alert("Form is valid! Sending request to the database...");
+            // send data to server here
+        }
+    </script>
 </head>
 <body>
     <!-- Header -->
@@ -31,7 +65,7 @@
         <section class="request-info">
             <h1>REQUEST ALUMNI INFO</h1>
             <p>Send an invite to any alumni for joining the platform by entering their credentials here.</p>
-            <form>
+            <form onsubmit="validateForm(event)">
                 <div class="form-group">
                     <input type="text" placeholder="First Name">
                     <input type="text" placeholder="Last Name">
@@ -47,6 +81,7 @@
                 <div class="form-group">
                     <textarea placeholder="Message"></textarea>
                 </div>
+                <button type="submit">Send Request</button>
             </form>
         </section>
     </main>
